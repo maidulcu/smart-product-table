@@ -127,19 +127,45 @@ class Plugin {
                 [],
                 SMARTTABLE_VERSION
             );  
-            wp_enqueue_style(
-            'choices-css',
-            'https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css',
-            [],
-            null
-            );
-            wp_enqueue_script(
-                'choices-js',
-                'https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js',
-                [],
-                null,
-                true
-            );
+            // Choices.js library - prefer local files, fallback to CDN
+            $choices_css_local = SMARTTABLE_PLUGIN_DIR . 'assets/admin/vendor/choices/choices.min.css';
+            $choices_js_local = SMARTTABLE_PLUGIN_DIR . 'assets/admin/vendor/choices/choices.min.js';
+
+            // Enqueue CSS
+            if ( file_exists( $choices_css_local ) ) {
+                wp_enqueue_style(
+                    'choices-css',
+                    SMARTTABLE_PLUGIN_URL . 'assets/admin/vendor/choices/choices.min.css',
+                    [],
+                    '10.2.0'
+                );
+            } else {
+                wp_enqueue_style(
+                    'choices-css',
+                    'https://cdn.jsdelivr.net/npm/choices.js@10.2.0/public/assets/styles/choices.min.css',
+                    [],
+                    '10.2.0'
+                );
+            }
+
+            // Enqueue JavaScript
+            if ( file_exists( $choices_js_local ) ) {
+                wp_enqueue_script(
+                    'choices-js',
+                    SMARTTABLE_PLUGIN_URL . 'assets/admin/vendor/choices/choices.min.js',
+                    [],
+                    '10.2.0',
+                    true
+                );
+            } else {
+                wp_enqueue_script(
+                    'choices-js',
+                    'https://cdn.jsdelivr.net/npm/choices.js@10.2.0/public/assets/scripts/choices.min.js',
+                    [],
+                    '10.2.0',
+                    true
+                );
+            }
     wp_add_inline_script('choices-js', "
         document.addEventListener('DOMContentLoaded', function () {
             const cats = document.querySelector('#smarttable_filter_categories');

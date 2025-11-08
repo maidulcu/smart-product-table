@@ -5,7 +5,7 @@
  * Description:       A modern, responsive, and customizable product table for WooCommerce with advanced filtering, bulk actions, and multiple display styles.
  * Version:           1.0.0
  * Requires at least: 5.0
- * Tested up to:      6.4
+ * Tested up to:      6.7
  * Requires PHP:      7.4
  * Author:            Maidul Islam
  * Author URI:        https://github.com/maidulcu

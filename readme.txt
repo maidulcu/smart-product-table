@@ -3,7 +3,7 @@ Contributors: maidulcu
 Donate link: https://github.com/maidulcu/smart-product-table
 Tags: woocommerce, product table, product list, bulk order, ajax cart
 Requires at least: 5.0
-Tested up to: 6.4
+Tested up to: 6.7
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
@@ -173,6 +173,20 @@ For support, feature requests, or bug reports, please visit our [GitHub reposito
 
 We welcome contributions! Please visit our [GitHub repository](https://github.com/maidulcu/smart-product-table) to contribute code, report issues, or suggest improvements.
 
+== Third Party Resources ==
+
+This plugin uses the following third-party resources in the admin area:
+
+**Choices.js**
+* Used for: Enhanced multi-select dropdowns in admin interface
+* Loaded from: jsDelivr CDN (https://cdn.jsdelivr.net/npm/choices.js/)
+* License: MIT
+* Version: Latest stable
+* Privacy: No data is collected or transmitted to external servers
+* Purpose: Improves user experience for category and tag selection
+
+The CDN resources are loaded only in the WordPress admin area and do not affect front-end performance or user privacy.
+
 == Privacy Policy ==
 
-Smart Product Table does not collect, store, or transmit any personal data. All functionality is handled locally within your WordPress installation.
+Smart Product Table does not collect, store, or transmit any personal data. All functionality is handled locally within your WordPress installation. The plugin does not make any external API calls or send data to third-party services during normal operation.
