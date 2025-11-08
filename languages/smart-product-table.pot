@@ -1,0 +1,97 @@
+# Smart Product Table
+# Copyright (C) 2024 Maidul Islam
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Smart Product Table 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/maidulcu/smart-product-table\n"
+"POT-Creation-Date: 2024-01-01 00:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: WordPress\n"
+
+#: smart-product-table.php
+msgid "Smart Product Table requires PHP %s or higher."
+msgstr ""
+
+#: smart-product-table.php
+msgid "Smart Product Table requires WordPress %s or higher."
+msgstr ""
+
+#: templates/table.php
+msgid "WooCommerce is required for Smart Product Table."
+msgstr ""
+
+#: templates/table.php
+msgid "No columns are available to render."
+msgstr ""
+
+#: templates/table.php
+msgid "No products found."
+msgstr ""
+
+#: templates/table.php
+msgid "All Categories"
+msgstr ""
+
+#: templates/table.php
+msgid "Category"
+msgstr ""
+
+#: templates/table.php
+msgid "Price Range"
+msgstr ""
+
+#: templates/table.php
+msgid "Sort By"
+msgstr ""
+
+#: templates/table.php
+msgid "Date Added"
+msgstr ""
+
+#: templates/table.php
+msgid "Name"
+msgstr ""
+
+#: templates/table.php
+msgid "Price"
+msgstr ""
+
+#: templates/table.php
+msgid "Popularity"
+msgstr ""
+
+#: templates/table.php
+msgid "Apply Filters"
+msgstr ""
+
+#: templates/table.php
+msgid "Reset"
+msgstr ""
+
+#: templates/table.php
+msgid "Search products..."
+msgstr ""
+
+#: templates/table.php
+msgid "Search"
+msgstr ""
+
+#: templates/table.php
+msgid "Clear"
+msgstr ""
+
+#: templates/table.php
+msgid "Select All"
+msgstr ""
+
+#: templates/table.php
+msgid "Add Selected to Cart"
+msgstr ""
