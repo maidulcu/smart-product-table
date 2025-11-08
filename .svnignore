@@ -1,0 +1,56 @@
+# Git files
+.git
+.gitignore
+.github
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+*~
+
+# Documentation (development only)
+*.md
+CHANGELOG.md
+roadmap.md
+CATEGORY_COLUMN.md
+
+# WordPress.org assets (handled separately in assets directory)
+.wordpress-org
+
+# Dependencies
+node_modules
+bower_components
+
+# Build tools
+package.json
+package-lock.json
+Gruntfile.js
+gulpfile.js
+webpack.config.js
+composer.json
+composer.lock
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.*
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.cache
+*.zip
