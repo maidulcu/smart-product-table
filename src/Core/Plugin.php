@@ -99,9 +99,12 @@ class Plugin {
         if ( defined( 'SMARTTABLE_PLUGIN_URL' ) ) {
             wp_enqueue_style( 'smarttable-css', SMARTTABLE_PLUGIN_URL . 'assets/css/smarttable.css', [], SMARTTABLE_VERSION );
             wp_enqueue_script( 'smarttable-js', SMARTTABLE_PLUGIN_URL . 'assets/js/smarttable.js', [ 'jquery' ], SMARTTABLE_VERSION, true );
-            wp_localize_script( 'smarttable-js', 'smarttable_ajax_object', [ 
+            wp_localize_script( 'smarttable-js', 'smarttable_ajax_object', [
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
-                'nonce' => wp_create_nonce( 'smarttable_nonce' )
+                'nonce' => wp_create_nonce( 'smarttable_nonce' ),
+                'bulk_cart_nonce' => wp_create_nonce( 'smarttable_bulk_cart' ),
+                'filter_nonce' => wp_create_nonce( 'smarttable_filter' ),
+                'load_table_nonce' => wp_create_nonce( 'smarttable_load_table' ),
             ] );
         }
     }

@@ -62,16 +62,30 @@ class LayoutBuilderMetabox {
     public function enqueue_assets($hook) {
         if ($hook !== 'post.php' && $hook !== 'post-new.php') return;
 
-        wp_enqueue_script(
-        'sortable-js',
-        'https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js',
-        [],
-        null,
-        true
-        );
+        // SortableJS library - prefer local files, fallback to CDN
+        $sortable_local = SMARTTABLE_PLUGIN_DIR . 'assets/admin/vendor/sortablejs/Sortable.min.js';
+
+        if ( file_exists( $sortable_local ) ) {
+            wp_enqueue_script(
+                'sortable-js',
+                SMARTTABLE_PLUGIN_URL . 'assets/admin/vendor/sortablejs/Sortable.min.js',
+                [],
+                '1.15.0',
+                true
+            );
+        } else {
+            wp_enqueue_script(
+                'sortable-js',
+                'https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js',
+                [],
+                '1.15.0',
+                true
+            );
+        }
+
         wp_enqueue_style('smarttable-layout-style', plugins_url('/assets/admin/css/layout-builder.css', SMARTTABLE_PLUGIN_FILE));
         wp_enqueue_style('wp-components'); // Ensures admin layout consistency
-        wp_enqueue_script('smarttable-layout-script', plugins_url('/assets/admin/js/layout-builder.js', SMARTTABLE_PLUGIN_FILE), ['jquery'], null, true);
+        wp_enqueue_script('smarttable-layout-script', plugins_url('/assets/admin/js/layout-builder.js', SMARTTABLE_PLUGIN_FILE), ['jquery'], '1.0.0', true);
     }
 
     public function render_metabox($post) {
@@ -151,15 +165,28 @@ class LayoutBuilderMetabox {
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
         if (!current_user_can('edit_post', $post_id)) return;
         if ($post->post_type !== 'smarttable_product') return;
-        
+
+        // Verify nonce for security
+        if (!isset($_POST['smarttable_column_layout_nonce']) ||
+            !wp_verify_nonce($_POST['smarttable_column_layout_nonce'], 'smarttable_layout_builder')) {
+            return;
+        }
+
         // Debug: Log what's being saved
-        if (current_user_can('manage_options')) {
+        if (defined('WP_DEBUG') && WP_DEBUG && current_user_can('manage_options')) {
             error_log('Saving post ' . $post_id . ' with min_price: ' . ($_POST['smarttable_min_price'] ?? 'not set'));
             error_log('Saving post ' . $post_id . ' with max_price: ' . ($_POST['smarttable_max_price'] ?? 'not set'));
         }
 
+        // Validate and save layout JSON
         $layout_json = isset($_POST['smarttable_column_layout']) ? wp_unslash($_POST['smarttable_column_layout']) : '';
-        update_post_meta($post_id, '_smarttable_column_layout', $layout_json);
+        if (!empty($layout_json)) {
+            $decoded = json_decode($layout_json, true);
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                update_post_meta($post_id, '_smarttable_column_layout', $layout_json);
+            }
+        } else {
+            update_post_meta($post_id, '_smarttable_column_layout', '');
 
         // Save product query filter fields
         $categories = isset($_POST['smarttable_filter_categories']) && is_array($_POST['smarttable_filter_categories']) ? array_map('sanitize_text_field', $_POST['smarttable_filter_categories']) : [];
@@ -174,7 +201,10 @@ class LayoutBuilderMetabox {
         update_post_meta($post_id, '_smarttable_products_per_page', absint($_POST['smarttable_products_per_page'] ?? 10));
         update_post_meta($post_id, '_smarttable_default_sort', sanitize_text_field($_POST['smarttable_default_sort'] ?? ''));
 
-        update_post_meta($post_id, '_smarttable_tax_query_relation', in_array($_POST['smarttable_tax_query_relation'] ?? '', ['AND', 'OR'], true) ? $_POST['smarttable_tax_query_relation'] : 'AND');
+        // Save tax query relation
+        $tax_relation = sanitize_text_field($_POST['smarttable_tax_query_relation'] ?? 'AND');
+        $tax_relation = in_array($tax_relation, ['AND', 'OR'], true) ? $tax_relation : 'AND';
+        update_post_meta($post_id, '_smarttable_tax_query_relation', $tax_relation);
 
         // Save style settings
         $design_style = sanitize_text_field($_POST['smarttable_design_style'] ?? 'default');

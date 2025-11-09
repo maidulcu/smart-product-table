@@ -57,13 +57,42 @@ else
     fi
 fi
 
+# SortableJS setup
+SORTABLE_DIR="assets/admin/vendor/sortablejs"
+SORTABLE_VERSION="1.15.0"
+
+echo ""
+echo "Setting up SortableJS v${SORTABLE_VERSION}..."
+
+# Create directory if it doesn't exist
+mkdir -p "$SORTABLE_DIR"
+
+# Download SortableJS file
+echo "Downloading Sortable.min.js..."
+if curl -L -f -o "${SORTABLE_DIR}/Sortable.min.js" "https://cdn.jsdelivr.net/npm/sortablejs@${SORTABLE_VERSION}/Sortable.min.js" 2>/dev/null; then
+    echo -e "${GREEN}✓${NC} Sortable.min.js downloaded successfully"
+else
+    echo -e "${YELLOW}! Could not download from CDN. Trying alternative method...${NC}"
+
+    # Try with wget
+    if command -v wget &> /dev/null; then
+        wget -q -O "${SORTABLE_DIR}/Sortable.min.js" "https://cdn.jsdelivr.net/npm/sortablejs@${SORTABLE_VERSION}/Sortable.min.js" && \
+        echo -e "${GREEN}✓${NC} Sortable.min.js downloaded successfully" || \
+        echo -e "${YELLOW}! Failed to download. Please download manually from: https://github.com/SortableJS/Sortable/releases${NC}"
+    else
+        echo -e "${YELLOW}! Please install curl or wget, or download manually from: https://github.com/SortableJS/Sortable/releases${NC}"
+    fi
+fi
+
 echo ""
 echo "========================================="
 echo "Vendor asset setup complete!"
 echo "========================================="
 echo ""
 echo "Next steps:"
-echo "1. Verify files exist in ${CHOICES_DIR}/"
-echo "2. Run: ls -lh ${CHOICES_DIR}/"
+echo "1. Verify files exist:"
+echo "   - ${CHOICES_DIR}/"
+echo "   - ${SORTABLE_DIR}/"
+echo "2. Run: ls -lh ${CHOICES_DIR}/ ${SORTABLE_DIR}/"
 echo "3. Test the plugin in your WordPress admin"
 echo ""

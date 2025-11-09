@@ -24,9 +24,11 @@ class FilterHandler {
         $page = absint( $_POST['page'] ?? 1 );
         
         // Debug logging
-        error_log( 'SmartTable Filter Request - Post ID: ' . $post_id );
-        error_log( 'SmartTable Filter Request - Filters: ' . print_r( $filters, true ) );
-        error_log( 'SmartTable Filter Request - Page: ' . $page );
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_log( 'SmartTable Filter Request - Post ID: ' . $post_id );
+            error_log( 'SmartTable Filter Request - Filters: ' . print_r( $filters, true ) );
+            error_log( 'SmartTable Filter Request - Page: ' . $page );
+        }
         
         if ( ! $post_id || get_post_type( $post_id ) !== 'smarttable_product' ) {
             wp_send_json_error( 'Invalid table ID' );
@@ -72,7 +74,9 @@ class FilterHandler {
         $min_price = floatval( $filters['min_price'] ?? 0 );
         $max_price = floatval( $filters['max_price'] ?? 0 );
         
-        error_log( 'Price filter - Min: ' . $min_price . ', Max: ' . $max_price );
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_log( 'Price filter - Min: ' . $min_price . ', Max: ' . $max_price );
+        }
         
         // Use WP_Query for price filtering
         $per_page = get_post_meta( $post_id, '_smarttable_per_page', true ) ?: 12;
