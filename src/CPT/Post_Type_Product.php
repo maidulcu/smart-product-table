@@ -71,7 +71,7 @@ class Post_Type_Product {
             echo esc_html( get_post_meta( $post_id, '_smarttable_layout_type', true ) );
         }
         if ( 'shortcode' === $column ) {
-            echo '[smart_product_table id="' . absint( $post_id ) . '"]';
+            echo esc_html( '[smart_product_table id="' . absint( $post_id ) . '"]' );
         }
     }
     

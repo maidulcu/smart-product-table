@@ -179,13 +179,23 @@ This plugin uses the following third-party resources in the admin area:
 
 **Choices.js**
 * Used for: Enhanced multi-select dropdowns in admin interface
-* Loaded from: jsDelivr CDN (https://cdn.jsdelivr.net/npm/choices.js/)
 * License: MIT
-* Version: Latest stable
+* Version: 10.2.0
+* Source: Bundled locally (preferred) or jsDelivr CDN fallback
 * Privacy: No data is collected or transmitted to external servers
 * Purpose: Improves user experience for category and tag selection
+* Homepage: https://github.com/Choices-js/Choices
 
-The CDN resources are loaded only in the WordPress admin area and do not affect front-end performance or user privacy.
+**SortableJS**
+* Used for: Drag-and-drop functionality in layout builder
+* License: MIT
+* Version: 1.15.0
+* Source: Bundled locally (preferred) or jsDelivr CDN fallback
+* Privacy: No data is collected or transmitted to external servers
+* Purpose: Enables intuitive drag-and-drop column arrangement
+* Homepage: https://github.com/SortableJS/Sortable
+
+All external libraries are bundled with the plugin for WordPress.org compliance. CDN fallbacks are only used if local files are missing. Resources are loaded only in the WordPress admin area and do not affect front-end performance or user privacy.
 
 == Privacy Policy ==
 
